@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Idle Adventure</title>
+  <style>
+    body {
+      margin: 0;
+      background: #18251d;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    header {
+      background: #263c2e;
+      padding: 20px;
+    }
+
+    h1 { margin: 0; color: #ffcb05; }
+
+    main {
+      max-width: 700px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .panel {
+      background: #294737;
+      border: 3px solid #507b5d;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .pokemon { font-size: 90px; }
+
+    button {
+      background: #ffcb05;
+      color: #222;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { background: #ffe16b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pokémon Idle Adventure</h1>
+    <p>Sua jornada Pokémon começa aqui!</p>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2>Seu primeiro Pokémon</h2>
+      <div class="pokemon">⚡</div>
+      <h3 id="pokemon">Pikachu</h3>
+      <p>Nível: <span id="nivel">5</span></p>
+      <p>Experiência: <span id="xp">0</span></p>
+      <button onclick="treinar()">Treinar Pokémon</button>
+    </div>
+
+    <div class="panel">
+      <h2>Exploração</h2>
+      <p>Pokébolas: <span id="bolas">5</span></p>
+      <p id="mensagem">Explore para encontrar Pokémon selvagens!</p>
+      <button onclick="explorar()">Explorar</button>
+      <button onclick="capturar()">Capturar Pokémon</button>
+    </div>
+  </main>
+
+  <script>
+    let xp = 0;
+    let nivel = 5;
+    let bolas = 5;
+    let selvagem = false;
+
+    function treinar() {
+      xp += 10;
+      if (xp >= 100) {
+        xp -= 100;
+        nivel++;
+      }
+      document.getElementById("xp").textContent = xp;
+      document.getElementById("nivel").textContent = nivel;
+    }
+
+    function explorar() {
+      selvagem = true;
+      document.getElementById("mensagem").textContent =
+        "Um Pokémon selvagem apareceu! Tente capturá-lo!";
+    }
+
+    function capturar() {
+      if (!selvagem) {
+        document.getElementById("mensagem").textContent =
+          "Explore primeiro para encontrar um Pokémon!";
+        return;
+      }
+
+      if (bolas <= 0) {
+        document.getElementById("mensagem").textContent =
+          "Você está sem Pokébolas!";
+        return;
+      }
+
+      bolas--;
+      document.getElementById("bolas").textContent = bolas;
+      selvagem = false;
+      document.getElementById("mensagem").textContent =
+        "Pokémon capturado! Você ganhou 20 XP!";
+      xp += 20;
+
+      if (xp >= 100) {
+        xp -= 100;
+        nivel++;
+      }
+
+      document.getElementById("xp").textContent = xp;
+      document.getElementById("nivel").textContent = nivel;
+    }
+  </script>
+</body>
+</html>
